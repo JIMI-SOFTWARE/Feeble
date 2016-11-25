@@ -9,6 +9,9 @@ using System.IO;
 
 namespace Feeble
 {
+    /// <summary>
+    /// Used to start screen recordings or streams.
+    /// </summary>
     public class Feeble
     {
         private FFmpeg ffmpeg;
@@ -17,7 +20,10 @@ namespace Feeble
         {
            
         } 
-
+        /// <summary>
+        /// Starts a screen stream based on the passed settings.
+        /// </summary>
+        /// <param name="settings"></param>
         public void Stream(StreamSettings settings)
         {
             if (settings.ffmpegLocation != null) settings.ffmpegLocation.Trim();
@@ -100,6 +106,10 @@ namespace Feeble
             ffmpeg.Start(false);
         }
 
+        /// <summary>
+        /// Starts a screen capture based on the passed settings.
+        /// </summary>
+        /// <param name="settings"></param>
         public void Capture(CaptureSettings settings)
         {
             if (settings.saveLocation != null) settings.saveLocation.Trim();
@@ -198,6 +208,9 @@ namespace Feeble
             ffmpeg.Start(false);
         }
 
+        /// <summary>
+        /// Stops any currently running screen captures or streams. 
+        /// </summary>
         public void Stop()
         {
             ffmpeg.Stop();  

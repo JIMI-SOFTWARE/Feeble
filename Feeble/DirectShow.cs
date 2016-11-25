@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Feeble
 {
+    /// <summary>
+    /// Used to produce a list of machines DirectShow audio and video devices.
+    /// </summary>
     public class DirectShow
     {
         private string ffmpegLocation = "";
@@ -17,6 +20,9 @@ namespace Feeble
             this.ffmpegLocation = ffmpegLocation;
         }
 
+        /// <summary>
+        /// When called will populate audioDevices and videoDevices with the machines available DirectShow audio and video devices.
+        /// </summary>
         public void GetDirectShowDevices()
         {
             var f = new FFmpeg(ffmpegLocation);
