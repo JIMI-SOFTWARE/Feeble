@@ -153,7 +153,7 @@
             this.button5.TabIndex = 12;
             this.button5.Text = "Stream Desktop";
             this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.stream);
+            this.button5.Click += new System.EventHandler(this.streamDesktop);
             // 
             // panel1
             // 
@@ -187,6 +187,7 @@
             this.button10.TabIndex = 22;
             this.button10.Text = "Stream Window";
             this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.streamWindow);
             // 
             // panel4
             // 
@@ -465,6 +466,7 @@
             this.sdBroadcastUrl.Name = "sdBroadcastUrl";
             this.sdBroadcastUrl.Size = new System.Drawing.Size(121, 20);
             this.sdBroadcastUrl.TabIndex = 54;
+            this.sdBroadcastUrl.Text = "live.twitch.tv";
             // 
             // sdStreamKey
             // 
@@ -529,6 +531,7 @@
             this.swBroadcastUrl.Name = "swBroadcastUrl";
             this.swBroadcastUrl.Size = new System.Drawing.Size(121, 20);
             this.swBroadcastUrl.TabIndex = 63;
+            this.swBroadcastUrl.Text = "live.twitch.tv";
             // 
             // label21
             // 
@@ -590,7 +593,7 @@
             this.button3.TabIndex = 69;
             this.button3.Text = "Stop Recording";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click_1);
+            this.button3.Click += new System.EventHandler(this.stopRecording);
             // 
             // Form1
             // 

@@ -29,6 +29,9 @@ namespace Tester
             audioDeviceList = d.audioDevices;
 
             cdAudioDevice.DataSource = audioDeviceList;
+            cwAudioDevice.DataSource = audioDeviceList;
+            sdAudioDevice.DataSource = audioDeviceList;
+            swAudioDevice.DataSource = audioDeviceList;
         }
 
         public void OutputHandler(object sendingProcess, DataReceivedEventArgs outLine)
@@ -41,6 +44,7 @@ namespace Tester
         {
             var settings = new CaptureSettings();
             feeble = new Feeble.Feeble();
+
             settings.ffmpegLocation = ffmpegLocation.Text;
             settings.recordingRegionType = RecordingRegionType.desktop;
             settings.fileName = cdOutputFile.Text;
@@ -68,15 +72,13 @@ namespace Tester
             }
 
             settings.drawCaptureRegion = cdDrawRegion.Checked;
-
+            settings.drawMouse = cdDrawMouse.Checked;
 
             var temp = Task.Run(() => feeble.Capture(settings));
-          
         }
 
         private void captureWindow(object sender, EventArgs e)
         {
-
             var settings = new CaptureSettings();
             feeble = new Feeble.Feeble();
             settings.ffmpegLocation = ffmpegLocation.Text;
@@ -84,85 +86,71 @@ namespace Tester
             settings.fileName = cdOutputFile.Text;
             settings.saveLocation = saveLocation.Text;
             settings.windowTitle = cwWindowTitle.Text;
-          
-
 
             var temp = Task.Run(() => feeble.Capture(settings));
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            Feeble.FFmpeg f = new FFmpeg(ffmpegLocation.Text);
-            f.Arguments = " -list_devices true -f dshow -i dummy";
-            string test = f.Start(true);
-
-            MessageBox.Show(test);
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            feeble.Stop();
-        }
-
-        private void stream(object sender, EventArgs e)
+        private void streamDesktop(object sender, EventArgs e)
         {
             var settings = new StreamSettings();
             feeble = new Feeble.Feeble();
             settings.ffmpegLocation = ffmpegLocation.Text;
-            settings.recordingRegionType = RecordingRegionType.window;
-            settings.windowTitle = "Super Tennis (E) (V1.0)";
-            settings.twitchBroadcastURL = "live.twitch.tv";
-            settings.videoBitrate = 500;
-            settings.audioDevice = "Stereo Mix (Realtek High Definition Audio)";
-            settings.twitchStreamKey = "live_95092020_kHakXQ6xx3KrXWwKhZ5ocQEMirIk1i";
-
-            //settings.verticalResolution = 500;
-            //settings.horizontalResolution = 500;
-            //settings.offSetX = 500;
-            //settings.offSetY = 500;
-            //settings.drawCaptureRegion = true;
-
-            //Closure
-            var temp = Task.Run(() => feeble.Stream(settings));
-
-            
-        }
-
-        private void getDirectShowDevices(object sender, EventArgs e)
-        {
-          //  var d = new Feeble.DirectShow(ffmpegLocation.Text);
-            //d.getDirectShowDevices();
-
-          //  string test = "";
-        }
-
-        private void captureDesktopWithSound(object sender, EventArgs e)
-        {
-            /*var settings = new CaptureSettings();
-            feeble = new Feeble.Feeble();
-            settings.ffmpegLocation = ffmpegLocation.Text;
             settings.recordingRegionType = RecordingRegionType.desktop;
-            settings.fileName = fileName.Text;
-            settings.saveLocation = saveLocation.Text;
-            settings.audioDevice = "Stereo Mix (Realtek High Definition Audio)";
-            //settings.verticalResolution = 301;
-            //settings.horizontalResolution = 507;
-            //settings.offSetX = 501;
-            //settings.offSetY = 406;
-            //settings.drawCaptureRegion = true;
+            settings.twitchBroadcastURL = sdBroadcastUrl.Text;
+            settings.twitchStreamKey = sdStreamKey.Text;
+            settings.videoBitrate = 500;
+            settings.audioDevice = sdAudioDevice.SelectedValue.ToString(); 
+            settings.drawCaptureRegion = sdDrawRegion.Checked;
+            settings.drawMouse = sdDrawMouse.Checked;
 
-            //Closure
-            var temp = Task.Run(() => feeble.Capture(settings));*/
+            if (sdVerRes.Text != "")
+            {
+                settings.verticalResolution = int.Parse(sdVerRes.Text);
+            }
+
+            if (sdHozRes.Text != "")
+            {
+                settings.horizontalResolution = int.Parse(sdHozRes.Text);
+            }
+
+            if (sdXOffSet.Text != "")
+            {
+                settings.offSetX = int.Parse(sdXOffSet.Text);
+            }
+
+            if (sdYOffset.Text != "")
+            {
+                settings.offSetY = int.Parse(sdYOffset.Text);
+            }
+ 
+            var temp = Task.Run(() => feeble.Stream(settings));
         }
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
 
         }
 
-        private void button3_Click_1(object sender, EventArgs e)
+        private void stopRecording(object sender, EventArgs e)
         {
             feeble.Stop();
+        }
+
+        private void streamWindow(object sender, EventArgs e)
+        {
+            var settings = new StreamSettings();
+            feeble = new Feeble.Feeble();
+            settings.ffmpegLocation = ffmpegLocation.Text;
+            settings.recordingRegionType = RecordingRegionType.window;
+            settings.windowTitle = swWindowTitle.Text;
+            settings.twitchBroadcastURL = swBroadcastUrl.Text;
+            settings.twitchStreamKey = swStreamKey.Text;
+            settings.videoBitrate = 500;
+            settings.audioDevice = swAudioDevice.SelectedValue.ToString();
+            settings.drawMouse = swDrawMouse.Checked;
+
+            var temp = Task.Run(() => feeble.Stream(settings));
         }
     }
 }
