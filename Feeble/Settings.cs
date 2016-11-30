@@ -20,7 +20,17 @@ namespace Feeble
         /// <summary>
         /// Directshow audio capture device that is to be used.
         /// </summary>
-        public string audioDevice { get; set; }      
+        public string audioDevice { get; set; }    
+        
+        /// <summary>
+        /// Directshow audio capture devices to be used.
+        /// </summary>
+        public List<string> audioDevices { get; set; }
+
+        /// <summary>
+        /// Directshow video capture devices to be used.
+        /// </summary>
+        public List<VideoDevice> videoDevices { get; set; }
 
         /// <summary>
         /// Location of the FFmpeg executable.
@@ -31,11 +41,6 @@ namespace Feeble
         /// Title of the window to be recorded. Will only take effect if the recordingRegionType is set to window.
         /// </summary>
         public string windowTitle { get; set; }
-
-        /// <summary>
-        /// Currently not implemented.
-        /// </summary>
-        public string microphoneDevice { get; set; }
 
         /// <summary>
         /// Horizontal Resolution to be recorded. Will only take effect if the recordingRegionType is set to desktop.
